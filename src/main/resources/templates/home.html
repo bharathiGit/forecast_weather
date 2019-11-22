@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Weather Report</title>
+		<link rel="stylesheet" href="/forecast_weather/css/style.css" />
+		<link rel="stylesheet" href="/forecast_weather/css/bootstrap.css" />
+	</head>
+	<body>
+	    <div class="container bg-light">
+			<!-- <div class="row">
+				<div class="col-3">City(with flag)</div>
+				<div class="col-9"> Weather Conditions(With icon)</div>
+			</div>
+			<div class="row">
+				<div class="col-3">Campbell,CA</div>
+				<div class="col-9"></div>				
+			</div>
+			<div class="row">
+				<div class="col-3">Omaha,NE</div>
+				<div class="col-9"></div>		
+			</div>
+			<div class="row">
+				<div class="col-3">Austin,TX</div>
+				<div class="col-9"></div>		
+			</div>
+			<div class="row">
+				<div class="col-3">Niseko,Japan</div>
+				<div class="col-9"></div>	
+			</div>
+			<div class="row">
+				<div class="col-3">Nara,Japan</div>
+				<div class="col-9"></div>		
+			</div>
+			<div class="row">
+				<div class="col-3">Jakarta,Indonesia</div>
+				<div class="col-9"></div>
+			</div> -->
+			<div class="row" th:each="obj : ${forecast}">				  
+            	<div class="col-2"><span th:text="${obj.timezone}"></span></div>
+                	<div class="col-10">
+                	    <div th:each="dailyobj : ${obj.daily}">
+                    	<div class="row">
+                            <div class="col-12"><span th:text="${dailyobj.summary}"></span></div>
+                         </div>
+                         <div class="row" th:each="dailydataobj, iterState : ${dailyobj.data}" th:if="${iterState.index < 5}">
+                           <div class="col-2">
+                           		<span th:text="${dailydataobj.dewPoint}+' &#176;F'"></span>
+                           </div>
+                           <div class="col-2">
+                           		<span th:text="${dailydataobj.precipType}"></span>
+                           </div>                    		   	
+                 				<!-- <span th:with="timeobj= ${dailydataobj.time}">  -->
+                 				<!-- <span th:text="${new java.util.Date(timeobj)}"> </span>
+                 				   <span th:text="'Label of Date: ' + ${#dates.format(dailydataobj.time, 'EEE')}">
+                 				   </span>
+                 				</span> -->
+                         </div>
+                       </div>
+                     </div>
+                </div>  
+		</div>
+	</body>
+</html>
