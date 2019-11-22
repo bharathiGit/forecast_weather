@@ -52,6 +52,25 @@ public class ForecastServiceImpl implements ForecastService{
 		Forecast forecast =null;
 		if(forecastInfo!=null){
 			forecast = gson.fromJson(forecastInfo, Forecast.class);
+			String city="";
+			String forecastLatLon=forecast.getLatitude()+","+forecast.getLongitude();
+			// Specified location hardcoded here. otherwise refer to Geolocation API
+			if(cambellLatLon.contains(forecastLatLon)) {
+				city="Campbell,CA  ";
+			}else if(omahaLatLon.contains(forecastLatLon)) {
+				city="Omaha,NE  ";
+			}else if(sustinLatLon.contains(forecastLatLon)) {
+				city="Austin,TX ";
+			}else if(nisekoLatLon.contains(forecastLatLon)) {
+				city="Niseko,Japan  ";
+			}else if(naraLatLon.contains(forecastLatLon)) {
+				city="Nara,Japan  ";
+			}else if(jakartaLatLon.contains(forecastLatLon)) {
+				city="Jakarta,Indonesia  ";
+			}else {
+				city="";
+			}
+			forecast.setTimezone(city+forecast.getTimezone());
 		}
 		return forecast;
 	}

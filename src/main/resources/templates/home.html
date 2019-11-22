@@ -7,55 +7,40 @@
 		<link rel="stylesheet" href="/forecast_weather/css/bootstrap.css" />
 	</head>
 	<body>
-	    <div class="container bg-light">
-			<!-- <div class="row">
-				<div class="col-3">City(with flag)</div>
-				<div class="col-9"> Weather Conditions(With icon)</div>
-			</div>
-			<div class="row">
-				<div class="col-3">Campbell,CA</div>
-				<div class="col-9"></div>				
-			</div>
-			<div class="row">
-				<div class="col-3">Omaha,NE</div>
-				<div class="col-9"></div>		
-			</div>
-			<div class="row">
-				<div class="col-3">Austin,TX</div>
-				<div class="col-9"></div>		
-			</div>
-			<div class="row">
-				<div class="col-3">Niseko,Japan</div>
-				<div class="col-9"></div>	
-			</div>
-			<div class="row">
-				<div class="col-3">Nara,Japan</div>
-				<div class="col-9"></div>		
-			</div>
-			<div class="row">
-				<div class="col-3">Jakarta,Indonesia</div>
-				<div class="col-9"></div>
-			</div> -->
+	    <div class="container text-white bg-info">
 			<div class="row" th:each="obj : ${forecast}">				  
-            	<div class="col-2"><span th:text="${obj.timezone}"></span></div>
-                	<div class="col-10">
+            	<div class="col-12">
+            	<!-- <span th:if="${@environment.getProperty('campbell_lat_lon_value')}"></span> -->
+            	               	
                 	    <div th:each="dailyobj : ${obj.daily}">
                     	<div class="row">
-                            <div class="col-12"><span th:text="${dailyobj.summary}"></span></div>
+                            <div class="col-12"><!-- <span th:text="${dailyobj.summary}"> -->
+                            <span th:text="${obj.timezone}"></span></div>
                          </div>
-                         <div class="row" th:each="dailydataobj, iterState : ${dailyobj.data}" th:if="${iterState.index < 5}">
-                           <div class="col-2">
-                           		<span th:text="${dailydataobj.dewPoint}+' &#176;F'"></span>
-                           </div>
-                           <div class="col-2">
-                           		<span th:text="${dailydataobj.precipType}"></span>
-                           </div>                    		   	
+                        <table class="table text-white">
+                           		<tr>
+                           		 <!-- <div  th:each="dailydataobj, iterState : ${dailyobj.data}" th:if="${iterState.index < 5}"> -->
+                           		 <div  th:each="dailydataobj : ${dailyobj.data}">
+                           		    <td>
+                           		    <table class="table table-bordered text-white">
+                           		       <tr><td><span th:text="${dailydataobj.summary}"> </span></td></tr>
+                           		       <tr><td><span th:text="${dailydataobj.dewPoint}+' &#176;F'"></span></td></tr>                           		       
+                           		         <span th:with="precipTypeObj= ${dailydataobj.precipType}">
+                           		          <tr><td><img th:src="@{'/images/'+${precipTypeObj}+'.png'}" width="50" height="50"/></td></tr>
+                           		          <tr><td><span th:text="${precipTypeObj}"></span></td></tr>
+                           		         </span>
+                           		       
+                           		    </table>
+                           		    </td>
+                           		</div>
+                           		</tr>
+                           </table>                   		   	
                  				<!-- <span th:with="timeobj= ${dailydataobj.time}">  -->
                  				<!-- <span th:text="${new java.util.Date(timeobj)}"> </span>
                  				   <span th:text="'Label of Date: ' + ${#dates.format(dailydataobj.time, 'EEE')}">
                  				   </span>
                  				</span> -->
-                         </div>
+                      
                        </div>
                      </div>
                 </div>  
